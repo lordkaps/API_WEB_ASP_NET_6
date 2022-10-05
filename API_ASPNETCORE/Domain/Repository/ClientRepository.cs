@@ -4,8 +4,12 @@ using API_ASPNETCORE.Domain.Model;
 
 namespace API_ASPNETCORE.Domain.Repository
 {
+    /// <summary>
+    /// Este repository foi criado apenas para simular rapidamente a API. Não fazendo de forma real o CRUD.
+    /// </summary>
     public class ClientRepository : RepositoryBase<Client>
     {
+
         public IList<Client> GetListClients(int quantidade)
         {
             var listaClient = new List<Client>();
@@ -19,6 +23,20 @@ namespace API_ASPNETCORE.Domain.Repository
                 return listaClient;
             else
                 return new List<Client>();
+        }
+
+        public Client UpdateClient(int id, string name)
+        {
+            Client client = RandonClient(id);
+            client.ClientName = name;
+            return client;
+        }
+
+        public bool DeleteClient(int id)
+        {
+            if (id > 0)
+                return true;
+            return false;
         }
 
         private static Client RandonClient(int id)
@@ -47,6 +65,10 @@ namespace API_ASPNETCORE.Domain.Repository
             else
                 return EnumTypeClient.FISICA;
         }
+
+        
+
+
     }
 }
 

@@ -3,6 +3,7 @@ using API_ASPNETCORE.Domain.Model;
 using API_ASPNETCORE.Domain.Repository;
 using API_ASPNETCORE.Domain.Services.IServices;
 using API_ASPNETCORE.Domain.ViewModel;
+using System.Xml.Linq;
 
 namespace API_ASPNETCORE.Domain.Services
 {
@@ -32,7 +33,30 @@ namespace API_ASPNETCORE.Domain.Services
 
         public Task PostClients(List<ClientViewModel> listClients)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                return listClients;
+            });
+        }
+
+        public Task<ClientViewModel> PutClient(int id, string name)
+        {
+            return Task.Run(() =>
+            {
+                Client cliente = _clientRepository.UpdateClient(id, name);
+                    
+                return Adapt(cliente);
+            });
+        }
+
+        public Task<bool> DeleteClient(int id)
+        {
+            return Task.Run(() =>
+            {
+                var result = _clientRepository.DeleteClient(id);
+
+                return result;
+            });
         }
 
         public ClientViewModel Adapt(Client client)
@@ -51,5 +75,7 @@ namespace API_ASPNETCORE.Domain.Services
                 );
             return clientViewModel;
         }
+
+        
     }
 }
